@@ -63,6 +63,10 @@ async def get_news_detail(news_id:int =Query(...,alias="id"),db: AsyncSession = 
     if not news_detail:
         raise HTTPException(status_code=404,detail="新闻不存在")
 
+    views_res = await news.increase_news_views(db,news_detail.id)
+    if not views_res:
+        raise HTTPException(status_code=404,detail="新闻不存在")
+
     return {
         "code":200,
         "message":"success",
