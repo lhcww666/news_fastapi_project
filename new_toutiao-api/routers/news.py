@@ -1,6 +1,4 @@
-from http.client import HTTPException
-
-from fastapi import APIRouter,Depends,Query
+from fastapi import APIRouter, Depends, HTTPException, Query
 from crud import news
 from config.db_conf import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -67,7 +65,11 @@ async def get_news_detail(news_id:int =Query(...,alias="id"),db: AsyncSession = 
     if not views_res:
         raise HTTPException(status_code=404,detail="新闻不存在")
 
-    related_news = await news.get_related_news(db,news_detail.id,news_detail.category_id)
+    related_news = await news.get_related_news(
+        db,
+        news_detail.category_id,
+        news_detail.id
+    )
 
     return {
         "code":200,

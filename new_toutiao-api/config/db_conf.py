@@ -11,6 +11,7 @@ async_engine = create_async_engine(
     max_overflow=20  #设置连接池允许创建的额外连接数
 )
 
+
 #创建异步会话工厂
 AsyncSessionLocal = async_sessionmaker(
     bind=async_engine,

@@ -28,7 +28,7 @@ async def get_news_detail(db: AsyncSession,  news_id:int):
     result = await db.execute(stmt)
     return result.scalar_one_or_none()
 
-
+#增加新闻浏览量
 async def increase_news_views(db: AsyncSession,news_id:int):
     stmt = update(News).where(News.id == news_id).values(views=News.views + 1)
     result = await db.execute(stmt)

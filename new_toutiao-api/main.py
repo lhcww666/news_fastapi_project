@@ -1,6 +1,8 @@
 from fastapi import FastAPI
-from routers import news
+from routers import news,users
 from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
+
 app = FastAPI()
 
 app.add_middleware(   #添加中间件
@@ -16,3 +18,13 @@ async def root():
 
 #挂载路由/注册路由
 app.include_router(news.router)
+app.include_router(users.router)
+
+
+if __name__ == "__main__":
+    uvicorn.run(
+        "main:app",
+        host="127.0.0.1",
+        port=8000,
+        reload=True,
+    )
